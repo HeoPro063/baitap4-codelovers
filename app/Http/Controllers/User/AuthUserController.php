@@ -123,4 +123,5 @@ class AuthUserController extends Controller
 
         return redirect()->route('user.mypage')->with('status_success', 'Thay đổi mật khẩu thành công');
     }
+   
 }

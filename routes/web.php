@@ -56,6 +56,7 @@ Route::group(['prefix' => 'user'], function() {
 
 
 
+
 // admin
 
 Route::get('/admin', function () {

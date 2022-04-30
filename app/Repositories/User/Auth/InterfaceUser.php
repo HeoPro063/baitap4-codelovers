@@ -74,4 +74,9 @@ class InterfaceUser implements UserRepository {
     public function checkEmail($email) {
         return $this->model->where('email', $email)->firstOrFail();
     }
+
+    public function filterEmail() {
+        $this->model->where("email_verified_at", "<" ,now()->addMinutes(-2)->toDateTimeString())->where('active', '0')->delete();
+        return true;    
+    }
 } 

@@ -13,4 +13,5 @@ Interface UserRepository {
     public function active($id);
     public function delete($id);
     public function checkEmail($email);
+    public function filterEmail(); 
 }
