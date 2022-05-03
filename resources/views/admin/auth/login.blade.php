@@ -19,7 +19,7 @@
   <div class="login-logo">
     <a href="./index2.html"><b>Admin</b>LTE</a>
   </div>
-    @if(session('status-auth'))
+    @if(session('messange-auth'))
         <div class="alert {{ session('status-auth') }} alert-dismissible fade show" role="alert">
             {{ session('messange-auth') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">

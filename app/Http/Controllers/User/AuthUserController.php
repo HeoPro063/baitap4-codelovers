@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Repositories\User\Auth\UserRepository;
 use Auth;
 use Hash;
-use Mail;
+use App\Jobs\MailJob;
+
 class AuthUserController extends Controller
 {
     //
@@ -27,16 +28,12 @@ class AuthUserController extends Controller
         ]);
 
         $user = $this->user->create($request->all());
-        $this->seedMail($user);
-        
+        $this->SendMailActive($user);
         return redirect()->route('user.login')->with('status_success', 'Đăng kí thành công. Vui lòng xác thực tài khoản trong email (Lưu ý: Tài khoản sẽ bị vô hiệu quá sau 2 phút nếu không xác thực)');
     }
 
-    public function seedMail($user) {
-        Mail::send('emails.activeAccount', ['data' => $user], function ($email) use ($user) {
-            $email->subject('Codelovers - Xác nhật tài khoản');
-            $email->to($user->email, $user->name);
-        });
+    public function SendMailActive($user) {
+        MailJob::dispatch($user);
     }
 
     public function login(Request $request) {
@@ -50,7 +47,10 @@ class AuthUserController extends Controller
                 Auth::guard('user')->logout();
                 return redirect()->route('user.login')->with('status_denger', "Bạn chưa xác thực tài khoản <a href=".route('auth-user-active')."> Click vào đây để tiến hành xác thực </a>");
             }
-            
+            if(Auth::guard('user')->user()->status == 0 ) {
+                Auth::guard('user')->logout();
+                return redirect()->route('user.login')->with('status_denger', "Tài khoản của bạn đã bị khóa");
+            }
             return redirect()->route('user.home');
         }
         return redirect()->route('user.login')->with('status_denger', 'Đăng nhập thất bại');
@@ -73,7 +73,7 @@ class AuthUserController extends Controller
     public function reAuthActive(Request $request) {
         $check = $this->user->checkEmail($request->email);
         if($check->active == 0) {
-            $this->seedMail($check);
+            $this->SendMailActive($check);
             return redirect()->route('user.login')->with('status_success', 'Chúng tôi đã gửi thư xác thực đến email của bạn, vui lòng truy cập vào email của bạn để kích hoạt tài khoản.)');
         }
     }
@@ -95,7 +95,6 @@ class AuthUserController extends Controller
         $user = Auth::guard('user')->user();
         $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$user->id,
         ]);
 
         $this->user->update($request->all());

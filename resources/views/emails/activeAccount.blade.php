@@ -31,11 +31,11 @@
 </head>
 <body>
     <div class="container">
-        <h3>Xin chào: {{$data->name}}</h3>
+        <h3>Xin chào: {{$user->name}}</h3>
         <p>Bạn đã đăng ký hệ thống tài khoản của chúng tôi</p>
         <p>Để có thể tiếp tục sử dụng bạn vui lòng nhấn vào nút kích hoạt tài khoản ở bên dưới</p>
         <div class="btn">
-            <a href="{{route('active.user', ['id' => $data->id, 'token' => $data->token])}}" class="btn-primary">Kích hoạt tài khoản</a>
+            <a href="http://127.0.0.1:8000/active-user/{{$user->id}}/{{$user->token}}" class="btn-primary">Kích hoạt tài khoản</a>
         </div>
     </div>
 </body>

@@ -9,17 +9,10 @@
             <h4>Edit personal information</h4>
             <div class="space20">&nbsp;</div>
             <div class="form-block">
-                <label for="name">Name*</label>
+                <label for="name">Name new*</label>
                 <input type="text" id="name" name="name" value="{{Auth::guard('user')->user()->name}}">
                 @if ($errors->has('name'))
                 <p style="color: red;margin-left:200px"> &ensp;  {{$errors->first('name')}}</p>
-                @endif
-            </div>
-            <div class="form-block">
-                <label for="email">Email*</label>
-                <input type="email" id="email" name="email"  value="{{Auth::guard('user')->user()->email}}">
-                @if ($errors->has('email'))
-                <p style="color: red;margin-left:200px"> &ensp;  {{$errors->first('email')}}</p>
                 @endif
             </div>
             <div class="form-block">

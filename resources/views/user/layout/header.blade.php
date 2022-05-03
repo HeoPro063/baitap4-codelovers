@@ -102,8 +102,8 @@
                             <li><a href="product_type.html">Sản phẩm 4</a></li>
                         </ul>
                     </li>
-                    <li><a href="about.html">Giới thiệu</a></li>
-                    <li><a href="contacts.html">Liên hệ</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Liên hệ</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </nav>

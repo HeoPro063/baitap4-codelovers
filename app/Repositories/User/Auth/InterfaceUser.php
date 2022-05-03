@@ -32,7 +32,6 @@ class InterfaceUser implements UserRepository {
     public function update(array $array) {
         $user = Auth::guard('user')->user();
         $user->name = $array['name'];
-        $user->email =  $array['email'];
         $user->save();
         return $user;
     }

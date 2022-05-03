@@ -83,3 +83,12 @@ Route::group(['middleware' => 'auth-admin', 'prefix' => 'admin'], function() {
     Route::get('/logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
 
+Route::get('get-url-current', function () {
+    $url_current = UrlHandling::get_url_current();
+    dd($url_current);
+});
+
+Route::get('get_url_previous', function () {
+    $get_url_previous = UrlHandling::get_url_previous();
+    dd($get_url_previous);
+});
