@@ -16,9 +16,13 @@ class User
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('user')->check()) {
+        if (Auth::guard('user')->check() ) {
+            if(Auth::guard('user')->user()->status == 0) {
+                Auth::guard('user')->logout();
+                return redirect()->route('user.home');
+            }
             return $next($request);
         }
-        return redirect()->route('admin.login');
+        return redirect()->route('user.home');
     }
 }

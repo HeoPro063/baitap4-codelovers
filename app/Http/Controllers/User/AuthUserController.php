@@ -24,7 +24,14 @@ class AuthUserController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|min:6',
-            'password_confirmation' => 'required_with:password|same:password|min:6'
+            'password_confirmation' => 'required_with:password|same:password'
+        ], [
+            'name.required' => 'Name không được để trống',
+            'email.required' => 'Email không được để trống',
+            'email.unique' => 'Email đã tồn tại',
+            'password.required' => 'Password không được để trống',
+            'password.min' => 'Password tối thiểu 6 kí tự',
+            'password_confirmation.same' => 'Password nhập lại không khớp',
         ]);
 
         $user = $this->user->create($request->all());

@@ -33,7 +33,7 @@
                 @endif
             </div>
             <div class="form-block">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>
         <div class="col-sm-3"></div>
